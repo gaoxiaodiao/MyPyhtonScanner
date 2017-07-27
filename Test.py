@@ -19,6 +19,10 @@ def test_get_post_request_info():
     url = "http://ce.cloud.360.cn"
     web_content = requests.get(url)
     print cdn_check.get_post_request_info(web_content.text)
+#测试cdn检测
+def test_cdn_check():
+    print cdn_check.run("http://gaoxiaodiao.com")
 if __name__ == '__main__':
     #test_get_domain()
-    test_get_post_request_info()
+    #test_get_post_request_info()
+    test_cdn_check()
