@@ -93,4 +93,3 @@ def run(url):
     success_msg += 'Nodes:' + str(len(ips))
     success_msg += 'Ip(%s)' % str(len(ans)) + ' '.join(ans)
     return success_msg,True
-
