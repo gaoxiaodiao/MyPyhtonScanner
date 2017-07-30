@@ -10,6 +10,8 @@ from modules import cdn_check
 from modules import port_scan
 import requests
 from sys import argv
+from lib import Spider
+
 #测试从url中获取域名
 def test_get_domain():
     print cdn_check.get_domain("http://blog.csdn.net/imzoer/article/details/8636764")
@@ -37,8 +39,14 @@ def test_port_scan():
         return False
     ps = port_scan.PortScan(ip)
     ps.run()
+
+#测试小爬虫
+def test_spider():
+    s = Spider.Spider("http://blog.gaoxiaodiao.com",10);
+    s.craw()
 if __name__ == '__main__':
     #test_get_domain()
     #test_get_post_request_info()
     #test_cdn_check()
-    test_port_scan()
+    #test_port_scan()
+    test_spider()
