@@ -8,18 +8,30 @@
 """
 import requests
 class Downloader:
+    def __init__(self):
+        self.header = {
+                'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
     #get请求获取网页内容并返回
     def get(self,url):
-        r = requests.get(url,timeout=10)
-        if r.status_code != 200:
-            return None;
-        content = r.text
-        return content
+        try:
+            r = requests.get(url,timeout=10,headers=self.header)
+            encoding = requests.utils.get_encodings_from_content(r.content)
+            ret = r.content.decode(encoding[0]).encode('utf-8')
+            return ret
+        except Exception,e:
+            print Exception,":",e
     #post请求获取网页内容并返回
     def post(self,url,data):
-        r = requests.post(url,data)
-        content = r.text;
-        return content
+        try:
+            r = requests.post(url,data)
+            encoding = requests.utils.get_encodings_from_content(r.content)
+            ret = r.content.decode(encoding[0]).encode('utf-8')
+            return ret
+        except Exception,e:
+            print Exception,":",e
     #将页面down下来,放到htmls中
     def down(self,url,htmls):
         if url is None:
@@ -28,9 +40,11 @@ class Downloader:
         strs["url"] = url
         try:
             r = requests.get(url,timeout=10)
+            encoding = requests.utils.get_encodings_from_content(r.content)
+            ret = r.content.decode(encoding[0]).encode('utf-8')
             if r.status_code != 200:
-                return None
-            strs["html"] = r.text
+                return ret
+            strs["html"] = ret
         except Exception,e:
             print Exception,":",e
         htmls.append(strs)

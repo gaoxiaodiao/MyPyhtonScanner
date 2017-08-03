@@ -57,9 +57,9 @@ class Spider:
             threads.append(t)
             for thread in threads:
                 thread.join()
-
             for _str in contents:
                 if _str is None:
                     continue
                 new_urls = self._get_new_urls(new_url,_str['html'])
                 self.urls.add_new_urls(new_urls)
+
